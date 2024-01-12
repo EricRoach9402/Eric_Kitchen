@@ -68,7 +68,7 @@ export default defineComponent({
 
 .menu-icon {
   margin-top: 15px;
-  margin-right: 50px; /* 调整图标和标题之间的间距 */
+  margin-right: 50px; /* 調整圖標和標題之間的間距 */
 }
 .menu-head {
   margin-bottom: 15px;

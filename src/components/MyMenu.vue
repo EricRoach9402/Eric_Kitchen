@@ -166,6 +166,34 @@ export default {
       // 使用 window.alert 顯示已選擇的菜品名稱
       const selectedItemsNames = this.selectedItems.map((item) => item.name).join(', ');
       window.alert(`選擇的菜色為：${selectedItemsNames}`);
+      //包裝Json檔
+        const jsonData = JSON.stringify({
+          name: selectedItemsNames,
+      });
+
+      // 發送 POST 请求
+  fetch('http://127.0.0.1:5000/api', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonData,
+  })
+    .then(response => response.json())
+    .then(data => {
+      // 處理 API 返回的數據
+      console.log('API 返回的數據:', data);
+
+      // 弹出成功提示框
+      window.alert('菜單信息已成功提交！');
+    })
+    .catch(error => {
+      // 處理错误
+      console.error('POST 請求失敗:', error);
+
+      // 彈出错誤提示框
+      window.alert('發送菜單信息失敗，請稍后重試。');
+    });
     },
   },
 };
@@ -180,20 +208,20 @@ export default {
 .container{
   display: grid;
   grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 0px; /* 可选项，设置行之间的间隔 */
+  gap: 0px; /* 可選项，設置行之間的間隔 */
   
 }
 .row_1{
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0px; /* 设置间隔 */
+  gap: 0px; /* 設置間隔 */
   border-top: 3px solid #000; /* 只畫上邊 */
   border-bottom: 1px dashed  #777474; /* 只畫下邊 */
 }
 .row_2 {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0px; /* 设置间隔 */
+  gap: 0px; /* 設置間隔 */
   border-top: 1px dashed  #777474; /* 只畫上邊 */
   border-bottom: 3px solid #000; /* 只畫下邊 */
   
