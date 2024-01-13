@@ -1,15 +1,19 @@
 <!-- src/components/MenuBlock.vue -->
 <template>
   <div>
-    <div class="menu-block mb60">
+    <div class="menu-block">
       <div class="menu-head">
         <span class="menu-icon">
+          <!-- 使用 TitleIconComponent 組件顯示圖標 -->
           <TitleIconComponent :iconImageSrc="iconImageSrc" :iconSize="iconSize" />
         </span>
+        <!-- 菜單標題 -->
         <h2 class="menu-title">{{ title }}</h2>
       </div>
+      <!-- 菜單列表 -->
       <div class="menu-list">
         <ul class="listnone">
+          <!-- 遍歷菜單項目，顯示 checkbox 和標籤 -->
           <li v-for="(item, index) in items" :key="index">
             <input 
               type="checkbox" 
@@ -34,9 +38,9 @@ export default defineComponent({
     title: String,
     items: Array,
     icon: String,
-    iconSize: Object, // 修改這一行
+    iconSize: Object, 
   },
-  
+  // 設定圖標的路徑
   setup(props) {
     const iconImageSrc = `/images/icon/${props.icon}.png`;
 
@@ -47,6 +51,7 @@ export default defineComponent({
   components: {
     TitleIconComponent,
   },
+  // 當 checkbox 狀態改變時觸發的方法
   methods: {
     handleCheckboxChange(item) {
       // 當 checkbox 狀態改變時，更新 selectedItems
@@ -61,56 +66,37 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/*將 menu-head 設為水平排列*/
 .menu-head {
-  margin-bottom: 10px;
   display: flex;
+  margin-bottom: 15px; /*head與下方菜色的距離*/
 }
 
+/* 調整圖標和標題之間的間距 */
 .menu-icon {
   margin-top: 15px;
-  margin-right: 50px; /* 調整圖標和標題之間的間距 */
+  margin-right: 50px; 
 }
-.menu-head {
-  margin-bottom: 15px;
-}
-
+/* 設定title */
 .menu-title {
   font-size: 26px;
 }
-
-.menu-block {
-  text-align: center;
-}
-
+/*設定菜單列表容器 */
 .menu-list {
-  list-style: none;
-  padding: 0;
-  display: grid;
+  list-style: none; /*移除列表前方的「·」 */
   grid-template-columns: 1fr;
-  justify-content: center;
-  align-items: center;
 }
-
+/*設定菜單內品項間的距離及字體大小 */
 .menu-list li {
   display: flex;
-  align-items: center;
-  text-align: center;
   margin-bottom: 5px;
   font-size: 20px;
 }
-
-.menu-list li input {
-  margin-left: 50px;
-  margin-right: 30px;
-}
-
+/*設定各列間的距離 */
 .listnone {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
   margin-bottom: 15px;
 }
-
+/*設定checkbox被選取後的顏色 */
 input[type="checkbox"]:checked + label {
   color: #e40c0c;
 }

@@ -10,20 +10,16 @@
               <h2 class="page-title">艾瑞克廚房</h2>
               <p>M E N U</p>
             </div>            
-            <!--<router-link to="/new-page" class="button-style">前往新頁面</router-link> -->
-
-
           </div>
         </div>
       </div>
     </div>
-
     <div class="space-medium">
       <!-- MenuBlock.vue 的容器 -->
       <div class="container">
         <!-- 水平排列的 MenuBlock.vue -->
         <div class="row_1">
-          <div class="row_1_1">
+          <div class="column1_1">
             <MenuBlock 
               title="開胃菜" 
               icon="icon-hamburger" 
@@ -33,7 +29,7 @@
               @item-deselected="handleItemDeselected"
               />
           </div>
-          <div class="row_1_2">
+          <div class="column1_2">
             <MenuBlock 
             title="蔬菜" 
             icon="icon-salad" 
@@ -43,7 +39,7 @@
             @item-deselected="handleItemDeselected"
             />
           </div>
-          <div class="row_1_3">
+          <div class="column1_3">
             <MenuBlock 
             title="主食" 
             icon="icon-bibimbap" 
@@ -55,7 +51,7 @@
           </div>
         </div>
         <div class="row_2">
-          <div class="row_2_1">
+          <div class="column2_1">
             <MenuBlock 
               title="飲料" 
               icon="icon-drink" 
@@ -65,7 +61,7 @@
               @item-deselected="handleItemDeselected"
             />
           </div>
-          <div class="row_2_2">
+          <div class="column2_2">
             <MenuBlock 
               title="甜點" 
               icon="icon-primary" 
@@ -75,7 +71,7 @@
               @item-deselected="handleItemDeselected"
             />
           </div>
-          <div class="row_2_3">
+          <div class="column2_3">
             <MenuBlock 
               title="冰品" 
               icon="icon-icecream" 
@@ -94,7 +90,7 @@
   </div>
 </template>
 <script>
-import MenuBlock from './MenuBlock.vue'; // 引入可能的子组件
+import MenuBlock from './MenuBlock.vue';
 export default {
   components: {
     MenuBlock,
@@ -200,6 +196,7 @@ export default {
 </script>
 
 <style scoped>
+/*控制標題 */
 .page-caption {
   text-align: center; /* 將文本水平置中 */
   margin: 0 auto; /* 通過 margin 屬性實現水平居中，0表示上下不留白，auto表示左右自動分配空間 */
@@ -207,9 +204,6 @@ export default {
 }
 .container{
   display: grid;
-  grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 0px; /* 可選项，設置行之間的間隔 */
-  
 }
 .row_1{
   display: grid;
@@ -226,35 +220,32 @@ export default {
   border-bottom: 3px solid #000; /* 只畫下邊 */
   
 }
-/* 新增以下樣式，指定每個 MenuBlock 在 grid 中的開始和結束位置 */
-.row_1 .row_1_1 {
+.row_1 .column1_1 {
   grid-column-start: 2;
   grid-column-end: 3;
-  
-  /*margin: 0px 150px 0px -150px; /* 上右下左的順序 */
-}
+  }
 
-.row_1 .row_1_2 {
+.row_1 .column1_2 {
   grid-column-start: 3;
   grid-column-end: 4;
 }
 
-.row_1 .row_1_3 {
+.row_1 .column1_3 {
   grid-column-start: 4;
   grid-column-end: 5;
 }
 
-.row_2 .row_2_1 {
+.row_2 .column2_1 {
   grid-column-start: 2;
   grid-column-end: 3;
 }
 
-.row_2 .row_2_2 {
+.row_2 .column2_2 {
   grid-column-start: 3;
   grid-column-end: 4;
 }
 
-.row_2 .row_2_3 {
+.row_2 .column2_3 {
   grid-column-start: 4;
   grid-column-end: 5;
 }
