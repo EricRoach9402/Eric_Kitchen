@@ -9,7 +9,10 @@
             <div class="page-caption">
               <h2 class="page-title">艾瑞克廚房</h2>
               <p>M E N U</p>
-            </div>            
+            </div>
+            <div class="switch-button">
+              <button class="manager-button-style" @click="ManagerButton">切換管理員系統</button>
+            </div>
           </div>
         </div>
       </div>
@@ -90,7 +93,7 @@
   </div>
 </template>
 <script>
-import MenuBlock from './MenuBlock.vue';
+import MenuBlock from '../components/MenuBlock.vue';
 export default {
   components: {
     MenuBlock,
@@ -115,8 +118,8 @@ export default {
       ],
       special_dishes:[
         { name: '火鍋', selected: false},
-        { name: '沙茶(牛、豬、雞)', selected: false},
-        { name: '蒜香(牛、豬、雞)', selected: false},
+        { name: '沙茶肉片', selected: false},
+        { name: '蒜香肉片', selected: false},
         { name: '糖醋魚', selected: false},
         { name: '香煎魚', selected: false},
         { name: '鹽烤魚', selected: false},
@@ -155,6 +158,9 @@ export default {
     handleItemDeselected(item) {
       this.selectedItems = this.selectedItems.filter((i) => i !== item);
     },
+    ManagerButton(){
+      this.$router.push('/manager');
+    },
     submitMenu() {
       // 處理送出邏輯，可以使用 this.selectedItems
       console.log('已勾選的項目：', this.selectedItems);
@@ -165,6 +171,7 @@ export default {
       //包裝Json檔
         const jsonData = JSON.stringify({
           name: selectedItemsNames,
+          table_name:"MenuItem"
       });
 
       // 發送 POST 请求
@@ -248,6 +255,25 @@ export default {
 .row_2 .column2_3 {
   grid-column-start: 4;
   grid-column-end: 5;
+}
+.switch-button{
+  margin: 1% 1%; /* 上右下左的順序，1% 表示上下留白 1%，左右留白 1% */
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.manager-button-style{
+  background-color: #9e8e96; /* Green背景 */
+  border: none; /* 移除邊框 */
+  color: white; /* 文字顏色為白色 */
+  padding: 15px 25px; /* 內間距 */
+  text-align: center; /* 文字居中 */
+  text-decoration: none; /* 移除超連結效果 */
+  display: inline-block; /* 設定元素為內聯塊級元素，使得寬高生效 */
+  font-size: 18px; /* 字體大小 */
+  margin: 3px 20px; /* 外邊距 */
+  cursor: pointer; /* 鼠標樣式為手型 */
+  border-radius: 8px; /* 圓角 */
 }
 .submit-button{
   margin: 0.8% auto; /* 通過 margin 屬性實現水平居中，0表示上下不留白，auto表示左右自動分配空間 */
