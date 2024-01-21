@@ -82,9 +82,12 @@ class ReceiveDataResource(Resource):
 
             if table_name == 'MenuItem':
                 # 建立 MenuItem 資料
+                print("收到MenuItem")
                 item = MenuItem(name=data.get('name', ''))
                 # 將資料提交至 session 表示為欲上傳資料
                 db.session.add(item)
+                # 在這裡執行 db.session.commit()
+                db.session.commit()
             elif table_name == 'FoodInventory':
                 # 更新 FoodInventory 資料
                 for category_data in data.get('food', []):
@@ -100,18 +103,14 @@ class ReceiveDataResource(Resource):
                         else:
                             new_food = FoodInventory(category=category_name, name=food_name, quantity=food_quantity)
                             db.session.add(new_food)
-
                 # 在這裡執行 db.session.commit()
                 db.session.commit()
-
             else:
                 return {"status": "error", "message": "Invalid table_name provided"}, 400
-
             response_data = {
                 "status": "success",
                 "message": f"Data received and stored successfully: {data}"
             }
-
             return response_data, 200
         except Exception as e:
             print("Error processing request:", str(e))

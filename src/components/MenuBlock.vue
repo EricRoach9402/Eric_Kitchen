@@ -89,8 +89,9 @@ export default defineComponent({
 /*設定菜單內品項間的距離及字體大小 */
 .menu-list li {
   display: flex;
-  margin-bottom: 5px;
-  font-size: 20px;
+  margin-bottom: 22px;
+  font-size: 26px;
+  padding:6%;
 }
 /*設定各列間的距離 */
 .listnone {

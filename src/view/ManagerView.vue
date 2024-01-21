@@ -179,7 +179,7 @@ starters: [
       // 處理 API 返回的數據
       console.log('API 返回的數據:', data);
 
-      // 弹出成功提示框
+      // 彈出成功提示框
       window.alert('菜單信息已成功提交！');
     })
     .catch(error => {
@@ -244,7 +244,6 @@ starters: [
   gap: 0px; /* 設置間隔 */
   border-top: 1px dashed  #777474; /* 只畫上邊 */
   border-bottom: 3px solid #000; /* 只畫下邊 */
-  
 }
 .row_1 .column1_1 {
   grid-column-start: 2;

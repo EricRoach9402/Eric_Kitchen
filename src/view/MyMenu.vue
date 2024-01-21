@@ -187,7 +187,7 @@ export default {
       // 處理 API 返回的數據
       console.log('API 返回的數據:', data);
 
-      // 弹出成功提示框
+      // 彈出成功提示框
       window.alert('菜單信息已成功提交！');
     })
     .catch(error => {

@@ -1,4 +1,4 @@
-// src/.main.js
+// src/main.js
 import { createApp } from 'vue'
 import App from './App.vue'
 import myrouter from './router/index.js';
