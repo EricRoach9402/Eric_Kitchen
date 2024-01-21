@@ -32,10 +32,13 @@ with app.app_context():
 class ReceiveDataResource(Resource):
     def get(self):
         try:
+            # 取得要更新的資料表名稱
+            table_name = request.args.get('table', '')
             # 獲取庫存數據
-            inventory_data = self.get_inventory_data()
-            if inventory_data == {'starters': [], 'salads': [], 'special_dishes': [], 'drinks': [], 'dessert': [], 'ice_cream': []}:
-                return {"status": "error", "message": "庫存數據為空"}, 500
+            inventory_data = self.get_inventory_data(table_name)
+            if not inventory_data:
+                return {"status": "error", "message": "無效的資料表名稱"}, 400
+
             response_data = {
                 "status": "success",
                 "data": inventory_data,
@@ -44,34 +47,51 @@ class ReceiveDataResource(Resource):
         except Exception as e:
             print("Error processing GET request:", str(e))
             return {"status": "error", "message": "Error processing GET request"}, 500
-    def get_inventory_data(self):
-        # 這裡根據你的需求從資料庫中獲取庫存數據
-        # 假設你有一個函數可以從 FoodInventory 資料表中獲取數據，你可以像這樣調用：
-        starters = self.get_category_inventory('starters')
-        salads = self.get_category_inventory('salads')
-        special_dishes = self.get_category_inventory('special_dishes')
-        drinks = self.get_category_inventory('drinks')
-        dessert = self.get_category_inventory('dessert')
-        ice_cream = self.get_category_inventory('ice_cream')
+    
+    def get_inventory_data(self, table_name):
+        if not table_name:
+            return None
+        if table_name == 'food_inventory':
+            # 這裡根據你的需求從資料庫中獲取庫存數據
+            # 假設你有一個函數可以從 FoodInventory 資料表中獲取數據，你可以像這樣調用：
+            starters = self.get_category_inventory(table_name,'starters')
+            salads = self.get_category_inventory(table_name,'salads')
+            special_dishes = self.get_category_inventory(table_name,'special_dishes')
+            drinks = self.get_category_inventory(table_name,'drinks')
+            dessert = self.get_category_inventory(table_name,'dessert')
+            ice_cream = self.get_category_inventory(table_name,'ice_cream')
+            print(
+                starters,salads,special_dishes,drinks,dessert,ice_cream
+            )
+            return {
+                "starters": starters,
+                "salads": salads,
+                "special_dishes": special_dishes,
+                "drinks": drinks,
+                "dessert": dessert,
+                "ice_cream": ice_cream,
+            }
+        elif table_name == 'menu_item':
+            # 這裡根據你的需求從資料庫中獲取庫存數據
+            # 使用 table_name 參數來動態指定要查詢的資料表
+            inventory_data = self.get_category_inventory(table_name)
+            return {
+                table_name: inventory_data,
+            }
 
-        return {
-            "starters": starters,
-            "salads": salads,
-            "special_dishes": special_dishes,
-            "drinks": drinks,
-            "dessert": dessert,
-            "ice_cream": ice_cream,
-        }
-
-    def get_category_inventory(self, category):
-        # 直接從資料庫中獲取指定類別的庫存數據
-        inventory_data = FoodInventory.query.filter_by(category=category).all()
-
-        # 將庫存數據轉換為字典格式
-        result = [{"name": item.name, "quantity": item.quantity} for item in inventory_data]
-
-        return result
-
+    def get_category_inventory(self, tablename,category=None):
+        print(tablename)
+        if tablename == 'food_inventory':
+            # 直接從資料庫中獲取指定類別的庫存數據
+            inventory_data = FoodInventory.query.filter_by(category=category).all()
+            print('成功2')
+            # 將庫存數據轉換為字典格式
+            result = [{"name": item.name, "quantity": item.quantity} for item in inventory_data]
+            return result
+        elif tablename == 'menu_item':
+            order_data = MenuItem.query.filter_by().all()
+            result = [{"id": item.id, "name": item.name} for item in order_data]
+            return result
     def post(self):
         try:
             # 取得完整 JSON 檔

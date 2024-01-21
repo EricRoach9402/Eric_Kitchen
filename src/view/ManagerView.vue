@@ -13,6 +13,9 @@
             <div class="switch-button">
               <button class="menu-button-style" @click="MenuButton">切換 MENU</button>
             </div>
+            <div class="myorder-button">
+              <button class="myorder-button-style" @click="MyOrderButton">切換 訂單管理系統</button>
+            </div>
           </div>
         </div>
       </div>
@@ -148,7 +151,10 @@ starters: [
   },
   methods: {
     MenuButton() {
-      this.$router.go(-1);
+      this.$router.push('/');
+    },
+    MyOrderButton() {
+      this.$router.push('/myorder');
     },
     submitMenu() {
       // 創建包含所有食物名稱與對應數量的 JSON 對象
@@ -192,7 +198,7 @@ starters: [
     },
     fetchInventoryData() {
       // 發送 GET 請求獲取庫存數據
-      fetch('http://127.0.0.1:5000/api', {
+      fetch('http://127.0.0.1:5000/api?table=food_inventory', {
         method: 'GET',
       })
         .then(response => response.json())
@@ -208,6 +214,7 @@ starters: [
     updateInventoryData(data) {
       // 根據返回的數據更新本地數據
       // 假設返回的數據格式為 { "status": "success", "data": { "starters": [...], "salads": [...], ... } }
+      
       if (data.status === 'success' && data.data) {
         this.starters = data.data.starters || [];
         this.salads = data.data.salads || [];
@@ -215,6 +222,9 @@ starters: [
         this.drinks = data.data.drinks || [];
         this.dessert = data.data.dessert || [];
         this.ice_cream = data.data.ice_cream || [];
+      }else {
+        console.error('API 返回的數據格式不正確:', data);
+        window.alert('獲取订单信息失敗，請稍後重試。');
       }
     },
   },
@@ -274,10 +284,29 @@ starters: [
   grid-column-start: 4;
   grid-column-end: 5;
 }
-.switch-button{
+.myorder-button{
   margin: 1% 1%; /* 上右下左的順序，1% 表示上下留白 1%，左右留白 1% */
   position: absolute;
   top: 0;
+  right: 0;
+}
+.myorder-button-style{
+  background-color: #9e8e96; /* Green背景 */
+  border: none; /* 移除邊框 */
+  color: white; /* 文字顏色為白色 */
+  padding: 15px 25px; /* 內間距 */
+  text-align: center; /* 文字居中 */
+  text-decoration: none; /* 移除超連結效果 */
+  display: inline-block; /* 設定元素為內聯塊級元素，使得寬高生效 */
+  font-size: 18px; /* 字體大小 */
+  margin: 3px 20px; /* 外邊距 */
+  cursor: pointer; /* 鼠標樣式為手型 */
+  border-radius: 8px; /* 圓角 */
+}
+.switch-button{
+  margin: 1% 1%; /* 上右下左的順序，1% 表示上下留白 1%，左右留白 1% */
+  position: absolute;
+  top: 6%;
   right: 0;
 }
 .menu-button-style{

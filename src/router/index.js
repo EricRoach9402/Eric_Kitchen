@@ -2,6 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import MyMenu from '../view/MyMenu.vue';
 import ManagerView from '../view/ManagerView.vue';
+import MyOrder from '../view/MyOrder.vue';
 
 const routes = [
   {
@@ -11,9 +12,14 @@ const routes = [
   },
   {
     path: '/manager',
-    name: 'ManagerViewName',
+    name: 'ManagerView',
     component: ManagerView,
   },
+  {
+    path: '/myorder',
+    name: 'MyOrder',
+    component: MyOrder,
+  }
 ];
 
 const router = createRouter({
